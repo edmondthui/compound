@@ -5,12 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./dist/main.css" />
-    <title>Project Name</title>
+    <title>₵ompound</title>
 </head>
 
 <body>
-    <button id="canvas-demo">Canvas Demo</button>
-    <button id="DOM-demo">DOM Demo</button>
+  <div id="header">
+    <a href = 'http://localhost:8080/'>₵ompound</a>
+  </div>
+
+  <div class="choices-container">
+    <div>
+      <h1>Age</h1>
+      <div class="choices">
+          <p class="draggable age" draggable="true">0-18</p>
+          <p class="draggable age" draggable="true">18-24</p>
+          <p class="draggable age" draggable="true">25-30</p>
+          <p class="draggable age" draggable="true">31-35</p>
+          <p class="draggable age" draggable="true">36-40</p>
+          <p class="draggable age" draggable="true">41-45</p>
+          <p class="draggable age" draggable="true">45-50</p>
+          <p class="draggable age" draggable="true">51-55</p>
+          <p class="draggable age" draggable="true">56-60</p>
+      </div>
+    </div>
+
+    <div>
+      <h1>Risk Tolerance</h1>
+      <div class="choices">
+          <p class="draggable risk" draggable="true">Low</p>
+          <p class="draggable risk" draggable="true">Medium</p>
+          <p class="draggable risk" draggable="true">High</p>
+          <p class="draggable risk" draggable="true">Extremly High</p>
+      </div>
+    </div>
+  
+    <div>
+      <h1>Income</h1>
+      <div class="choices">
+          <p class="draggable income" draggable="true">0 - $20,000</p>
+          <p class="draggable income" draggable="true">$20,000 - $40,000</p>
+          <p class="draggable income" draggable="true">$20,000 - $60,000</p>
+          <p class="draggable income" draggable="true">$60,000 - $80,000</p>
+          <p class="draggable income" draggable="true">$80,000 - $100,000</p>
+          <p class="draggable income" draggable="true">$100,000 - $150,000</p>
+          <p class="draggable income" draggable="true">$150,000 - $200,000</p>
+          <p class="draggable income" draggable="true">$200,000 +</p>
+      </div>
+    </div>
+
+    <div>
+      <h1>Retirement Age</h1>
+      <div class="choices">
+        <p class="draggable retirement" draggable="true">40</p>
+        <p class="draggable retirement" draggable="true">45</p>
+        <p class="draggable retirement" draggable="true">50</p>
+        <p class="draggable retirement" draggable="true">55</p>
+        <p class="draggable retirement" draggable="true">60</p>
+        <p class="draggable retirement" draggable="true">65</p>
+        <p class="draggable retirement" draggable="true">70</p>
+      </div>
+    </div>
+
+  </div>
+  <div>
+    <button class="match">Match With Fund</button>
+  </div>
+
+  <div class="droppable-container">
+      <div class="container">
+
+      </div>
+  
+      <div class="container">
+
+      </div>
+  
+      <div class="container">
+
+      </div>
+  
+      <div class="container">
+
+      </div>
+  </div>
+
     <script src="./dist/main.js"></script>
 </body>
 </html>
