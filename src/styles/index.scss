@@ -149,5 +149,9 @@ body {
 
 .hovering {
   border-style: dashed;
-  background-color: lightgray;
+  background-color: yellow;
+}
+
+.droppable-container .highlight {
+  background-color: yellow;
 }

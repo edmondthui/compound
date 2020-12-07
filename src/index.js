@@ -16,6 +16,22 @@ let dragging;
 
 function dragStart() {
   this.className += " dragging";
+  if ([...this.classList].includes("age")) {
+    let dropZone = document.getElementsByClassName("container age")[0]
+    dropZone.className += " highlight"
+  }
+  else if ([...this.classList].includes("risk")) {
+    let dropZone = document.getElementsByClassName("container risk")[0]
+    dropZone.className += " highlight"
+  }
+  else if ([...this.classList].includes("income")) {
+    let dropZone = document.getElementsByClassName("container income")[0]
+    dropZone.className += " highlight"
+  }
+  else if ([...this.classList].includes("retirement")) {
+    let dropZone = document.getElementsByClassName("container retirement")[0]
+    dropZone.className += " highlight"
+  }
   dragging = this;
   setTimeout(() => this.className += " remove", 0)
 }
