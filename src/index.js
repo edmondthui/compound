@@ -118,7 +118,7 @@ function displayGraph(dataObj, info) {
 
 
   let margin = {top : 10, right: 30, bottom: 30, left: 60},
-    width = window.innerWidth - margin.left - margin.right,
+    width = window.innerWidth - margin.left - margin.right - 20,
     height = window.innerHeight - margin.top - margin.bottom - (window.innerHeight/2.5);
 
   let svg = d3.select("#fund-graph").append("svg")
@@ -182,10 +182,40 @@ function compoundingInterest(info, tags) {
   else {
     savings = 20000/12 * .10
   }
-  let compoundInterest = []
+  let dataObj = []
   for (let i = 0 ; i < time ; i ++) {
-    let dataObj = {date: i, value: (compoundInterest[i-1] ? compoundInterest[i-1].value : 0) + (savings * (1+rate))}
-    compoundInterest.push(dataObj)
+    let data = {date: i, value: (dataObj[i-1] ? dataObj[i-1].value* (1+rate) : 0) + (savings)}
+    dataObj.push(data)
   }
-  console.log(compoundInterest);
+
+  let maxPrice = d3.max(dataObj, (d) => { return d.value});
+  let minPrice = d3.min(dataObj, (d) => { return d.value});
+
+
+  let margin = {top : 10, right: 30, bottom: 30, left: 80},
+    width = window.innerWidth - margin.left - margin.right - 80,
+    height = window.innerHeight - margin.top - margin.bottom - (window.innerHeight/2.5);
+
+  let svg = d3.select("#compound-interest-graph").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + ", "+margin.top +")");
+
+  let x = d3.scaleLinear()
+    .domain(d3.extent(dataObj, function(d) {return d.date;}))
+    .range([0,width])
+  svg.append("g").attr("transform", "translate(0,"+ height + ")").call(d3.axisBottom(x))
+
+  let y = d3.scaleLinear()
+    .domain([minPrice, maxPrice])
+    .range([ height, 0 ]);
+  svg.append("g").call(d3.axisLeft(y));
+
+  svg.append("path").datum(dataObj).attr("fill", "none").attr("stroke", "darkblue").attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+      .x((d) => {return x(d.date) })
+      .y((d) => {return y(d.value)})
+    )
+
 }
