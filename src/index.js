@@ -163,24 +163,29 @@ function compoundingInterest(info, tags) {
   let time = parseInt(tags[tags.length-1]) - parseInt(tags[0])
   let income = parseInt(tags[2].slice(1))
   let savings = 0;
+  if (income >= 200000) {
+    income = 250000;
+    savings = income * .70
+  }
   if (income >= 100000) {
-    savings = income/12 * .70;
+    savings = income * .70;
   }
   else if (income >= 60000) {
-    savings = income/12 * .60
+    savings = income * .60
   }
   else if (income >= 40000) {
-    savings = income/12 * .50
+    savings = income * .50
   }
   else if (income >= 20000) {
-    savings = income/12 * .30
+    savings = income * .30
   }
   else {
     savings = 20000/12 * .10
   }
-  console.log(savings)
-  console.log(rate)
-  console.log(time)
-  console.log(income)
-
+  let compoundInterest = []
+  for (let i = 0 ; i < time ; i ++) {
+    let dataObj = {date: i, value: (compoundInterest[i-1] ? compoundInterest[i-1].value : 0) + (savings * (1+rate))}
+    compoundInterest.push(dataObj)
+  }
+  console.log(compoundInterest);
 }
