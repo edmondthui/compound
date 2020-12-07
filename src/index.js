@@ -7,8 +7,8 @@ draggable.forEach(element => element.addEventListener("dragstart", dragStart))
 draggable.forEach(element => element.addEventListener("dragend", dragEnd))
 droppable.forEach(element => {
   element.addEventListener("dragover", dragOver)
-  // element.addEventListener("dragenter", dragEnter)
-  // element.addEventListener("dragLeave", dragLeave)
+  element.addEventListener("dragenter", dragEnter)
+  element.addEventListener("dragleave", dragLeave)
   element.addEventListener("drop", dragDrop)
 })
 
@@ -24,14 +24,21 @@ function dragEnd() {
   this.className = "draggable"
 }
 
+function dragEnter(e) {
+  e.preventDefault()
+  this.className += " hovering";
+}
+
 function dragOver(e) {
   e.preventDefault()
 }
 
+function dragLeave() {
+  this.className = "container"
+}
+
 function dragDrop() {
   this.className = "dropped";
-  debugger;
-  let tags = [...droppable].map(element => element.innerText);
   if (this.children.length === 0 ) {
     this.append(dragging)
   }
@@ -52,33 +59,42 @@ function matchFund() {
       ticker: "VTI",
       name: "Vanguard 500 Index Fund ETF",
       description: "Seeks to track the performance of the CRSP US Total Market Index. Large-, mid-, and small-cap equity diversified across growth and value styles. Employs a passively managed, index-sampling strategy. The fund remains fully invested. Low expenses minimize net tracking error.",
+      return: .1402
     }
     fetchStockData("VTI", info)
+    compoundingInterest(info, tags)
   }
   else if (tags.includes("Medium")) {
     let info = {
       ticker: "VOO",
       name: "Vanguard 500 Index Fund ETF",
       description: "Invests in stocks in the S&P 500 Index, representing 500 of the largest U.S. companies. Goal is to closely track the index’s return, which is considered a gauge of overall U.S. stock returns. Offers high potential for investment growth; share value rises and falls more sharply than that of funds holding bonds. More appropriate for long-term goals where your money’s growth is essential.",
+      return: .1502
     }
     fetchStockData("VOO", info)
+    compoundingInterest(info, tags)
   }
   else if (tags.includes("High")) {
     let info = {
       ticker: "QLD",
       name: " ProShares Ultra QQQ",
-      description: "This leveraged ProShares ETF seeks a return that is 2x the return of its underlying benchmark (target) for a single day, as measured from one NAV calculation to the next. Due to the compounding of daily returns, holding periods of greater than one day can result in returns that are significantly different than the target return and ProShares' returns over periods other than one day will likely differ in amount and possibly direction from the target return for the same period. "
+      description: "This leveraged ProShares ETF seeks a return that is 2x the return of its underlying benchmark (target) for a single day, as measured from one NAV calculation to the next. Due to the compounding of daily returns, holding periods of greater than one day can result in returns that are significantly different than the target return and ProShares' returns over periods other than one day will likely differ in amount and possibly direction from the target return for the same period.",
+      return: .2405
     }
     fetchStockData("QQQ", info)
+    compoundingInterest(info, tags)
   }
   else if (tags.includes("Extremely High")) {
     let info = {
       ticker: "TECL",
       name: " Direxion Daily Technology Bull 3X Shares ETF",
       description: "The Direxion Daily Technology Bull (TECL) and Bear (TECS) 3X Shares seek daily investment results, before fees and expenses, of 300%, or 300% of the inverse (or opposite), of the performance of the Technology Select Sector Index. There is no guarantee the funds will meet their stated investment objectives.",
+      return: .3739
     }
     fetchStockData("TECL", info)
+    compoundingInterest(info, tags)
   }
+  
 }
 
 function fetchStockData(fundTicker, info) {
@@ -93,6 +109,7 @@ function fetchStockData(fundTicker, info) {
       dataObj.push({value: parseFloat(data["Time Series (Daily)"][point]["1. open"]), date: d3.timeParse("%Y-%m-%d")(point)})
     }
     displayGraph(dataObj, info)
+
   })
   // .then(() => {
   //   fetch(infoAPIurl).then(response => {
@@ -103,12 +120,9 @@ function fetchStockData(fundTicker, info) {
   //     displayGraph(dataObj, data)
   //   })
   // })
-
-
 }
 
 function displayGraph(dataObj, info) {
-  console.log(info);
   let maxPrice = d3.max(dataObj, (d) => { return d.value});
   let minPrice = d3.min(dataObj, (d) => { return d.value});
 
@@ -151,7 +165,11 @@ function displayGraph(dataObj, info) {
   chartInfo.append("div")
     .classed("info-description", true)
     .text(info.description)
-
-
   
+}
+
+function compoundingInterest(info, tags) {
+  console.log(info)
+  console.log(tags)
+
 }
