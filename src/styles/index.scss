@@ -22,17 +22,26 @@
   margin: 50px 100px;
   justify-content: space-between;
   text-align: center;
-
 }
 
 .draggable {
   display: block;
   text-align: center;
   width: 300px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: lightblue;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.draggable:hover {
+  cursor: grab;
 }
 
 .droppable-container {
-  background-color: gray;
+  background-color: darkgreen;
   display: flex;
   height: 100px;
   justify-content: space-between;
@@ -48,11 +57,18 @@
 body {
   display: flex;
   flex-direction: column;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .container {
-  height: 100px;
+  height: 40px;
   width: 300px;
+  border-radius: 5px;
   background-color: darkgray;
 }
 
@@ -67,14 +83,26 @@ body {
 .showMatch {
   display: flex;
   margin: 0px auto 10px auto;
+  border-radius: 5px;
+  background-color: darkgreen;
+  color: white;
+  width: 150px;
+  height: 50px;
+  border: 1px solid darkgreen;
+  align-items: center;
+  justify-content: center;
+}
+
+.showMatch:hover {
+  cursor: pointer;
 }
 
 .fund-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-top: 60px;
-    z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: 60px;
+  z-index: -1;
 }
 
 #fund-graph {
@@ -82,7 +110,6 @@ body {
   justify-content: center;
   width: 100%;
   position: relative;
-
 }
 
 #fund-info {
