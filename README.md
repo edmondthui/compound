@@ -14,4 +14,6 @@ Compound is an app that lets you plan your financial future. Just drag and drop 
 * Allow users to edit budget and have information reflected in graph
 
 ## Wireframes
-![Compound wireframe](https://i.imgur.com/aZ5No1Z.png)
+![Compound Homepage Wireframe](https://i.imgur.com/aZ5No1Z.png)
+![Compound Matched Fund Wireframe](https://i.imgur.com/Y9KjQtj.png)
+!(Compound Budget Wireframe](https://i.imgur.com/z5yqy1M.png)
