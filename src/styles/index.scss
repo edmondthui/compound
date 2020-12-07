@@ -22,6 +22,12 @@
   margin: 50px 100px;
   justify-content: space-between;
   text-align: center;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .draggable {
@@ -57,12 +63,6 @@
 body {
   display: flex;
   flex-direction: column;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 .container {
