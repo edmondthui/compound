@@ -92,3 +92,14 @@ body {
   position: relative;
   z-index: -1;
 }
+
+.info-title {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 100px;
+}

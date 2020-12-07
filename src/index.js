@@ -133,11 +133,24 @@ function displayGraph(dataObj, info) {
     .range([ height, 0 ]);
   svg.append("g").call(d3.axisLeft(y));
 
-  svg.append("path").datum(dataObj).attr("fill", "none").attr("stroke", "blue").attr("stroke-width", 1.5)
+  svg.append("path").datum(dataObj).attr("fill", "none").attr("stroke", "darkblue").attr("stroke-width", 1.5)
     .attr("d", d3.line()
       .x((d) => {return x(d.date) })
       .y((d) => {return y(d.value)})
     )
+
+  var chartInfo = d3.select("#fund-info").append("div")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", window.innerHeight - height - margin.top - margin.bottom)
+    .classed("info-container", true)
+
+  chartInfo.append("div")
+    .classed("info-title", true)
+    .text(info.name + ", " + info.ticker)
+
+  chartInfo.append("div")
+    .classed("info-description", true)
+    .text(info.description)
 
 
   
