@@ -100,7 +100,6 @@ function matchFund() {
 function fetchStockData(fundTicker, info) {
   const APIkey = "MIDR3MRG2WBYRNQN"
   let chartAPIurl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${fundTicker}&apikey=${APIkey}`
-  // let infoAPIurl = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${fundTicker}&apikey=${APIkey}`
   let dataObj = [];
   fetch(chartAPIurl).then(response => {
     return response.json();
@@ -111,15 +110,6 @@ function fetchStockData(fundTicker, info) {
     displayGraph(dataObj, info)
 
   })
-  // .then(() => {
-  //   fetch(infoAPIurl).then(response => {
-  //     console.log(response)
-  //     return response.json();
-  //   }).then(data => {
-  //     console.log(data)
-  //     displayGraph(dataObj, data)
-  //   })
-  // })
 }
 
 function displayGraph(dataObj, info) {
@@ -169,7 +159,28 @@ function displayGraph(dataObj, info) {
 }
 
 function compoundingInterest(info, tags) {
-  console.log(info)
-  console.log(tags)
+  let rate = info.return
+  let time = parseInt(tags[tags.length-1]) - parseInt(tags[0])
+  let income = parseInt(tags[2].slice(1))
+  let savings = 0;
+  if (income >= 100000) {
+    savings = income/12 * .70;
+  }
+  else if (income >= 60000) {
+    savings = income/12 * .60
+  }
+  else if (income >= 40000) {
+    savings = income/12 * .50
+  }
+  else if (income >= 20000) {
+    savings = income/12 * .30
+  }
+  else {
+    savings = 20000/12 * .10
+  }
+  console.log(savings)
+  console.log(rate)
+  console.log(time)
+  console.log(income)
 
 }
