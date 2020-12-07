@@ -6,6 +6,7 @@ Compound is an app that lets you plan your financial future. Just drag and drop 
 * `JavaScript` 
 * `D3.js` for data visualization
 * `Webpack` to bundle JS files
+* `IEX Trading API` or some other API to fetch fund data 
 
 ## Key Features / MVP
 * Drag and drop information into drop zone
