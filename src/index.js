@@ -50,12 +50,47 @@ function matchFund() {
 function fetchStockData(fundTicker) {
   const APIkey = "MIDR3MRG2WBYRNQN"
   let APIurl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${fundTicker}&apikey=${APIkey}`
-  let xAxis = [];
-  let yAxis = [];
+  let dataObj = [];
   fetch(APIurl).then(response => {
-    console.log(response);
     return response.json();
   }).then(data => {
-    console.log(data);
+    for (let point in data["Time Series (Daily)"]) {
+      dataObj.push({value: parseFloat(data["Time Series (Daily)"][point]["1. open"]), date: d3.timeParse("%Y-%m-%d")(point)})
+    }
+    displayGraph(dataObj)
   })
+
+}
+
+function displayGraph(dataObj) {
+
+  let maxPrice = d3.max(dataObj, (d) => { return d.value});
+  let minPrice = d3.min(dataObj, (d) => { return d.value});
+
+
+  let margin = {top : 10, right: 30, bottom: 30, left: 60},
+    width = window.innerWidth - margin.left - margin.right,
+    height = window.innerHeight - margin.top - margin.bottom - (window.innerHeight/2.5);
+
+  let svg = d3.select("#fund-graph").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+      .attr("transform", "translate(" + margin.left + ", "+margin.top +")");
+
+  let x = d3.scaleTime()
+    .domain(d3.extent(dataObj, function(d) {return d.date;}))
+    .range([0,width])
+  svg.append("g").attr("transform", "translate(0,"+ height + ")").call(d3.axisBottom(x))
+
+  let y = d3.scaleLinear()
+    .domain([minPrice, maxPrice])
+    .range([ height, 0 ]);
+  svg.append("g").call(d3.axisLeft(y));
+
+  svg.append("path").datum(dataObj).attr("fill", "none").attr("stroke", "blue").attr("stroke-width", 1.5)
+    .attr("d", d3.line()
+      .x((d) => {return x(d.date) })
+      .y((d) => {return y(d.value)})
+    )
 }
