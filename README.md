@@ -47,3 +47,4 @@ Compound is an app that lets you plan your financial future. Just drag and drop 
 ### December 11
 * Clean up code and find bugs
 * Add more styling
+* Finish production README
