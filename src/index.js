@@ -29,11 +29,13 @@ function dragOver(e) {
 }
 
 function dragDrop() {
-  this.className = "droppable";
+  this.className = "dropped";
+  debugger;
+  let tags = [...droppable].map(element => element.innerText);
   if (this.children.length === 0 ) {
     this.append(dragging)
   }
-  let filled = [...droppable].filter(droppable => droppable.className === "droppable")
+  let filled = [...droppable].filter(droppable => droppable.className === "dropped")
   if (filled.length === 4) {
     let showButton = document.querySelector(".match")
     showButton.className = "showMatch"
@@ -43,27 +45,70 @@ function dragDrop() {
 
 function matchFund() {
   const remove = document.querySelectorAll(".draggable, .container, .droppable, .droppable-container, .showMatch, .choices-container");
+  let tags = [...droppable].map(element => element.innerText);
   remove.forEach(element => element.className += " remove")
-  fetchStockData("VOO")
+  if (tags.includes("Low")) {
+    let info = {
+      ticker: "VTI",
+      name: "Vanguard 500 Index Fund ETF",
+      description: "Seeks to track the performance of the CRSP US Total Market Index. Large-, mid-, and small-cap equity diversified across growth and value styles. Employs a passively managed, index-sampling strategy. The fund remains fully invested. Low expenses minimize net tracking error.",
+    }
+    fetchStockData("VTI", info)
+  }
+  else if (tags.includes("Medium")) {
+    let info = {
+      ticker: "VOO",
+      name: "Vanguard 500 Index Fund ETF",
+      description: "Invests in stocks in the S&P 500 Index, representing 500 of the largest U.S. companies. Goal is to closely track the index’s return, which is considered a gauge of overall U.S. stock returns. Offers high potential for investment growth; share value rises and falls more sharply than that of funds holding bonds. More appropriate for long-term goals where your money’s growth is essential.",
+    }
+    fetchStockData("VOO", info)
+  }
+  else if (tags.includes("High")) {
+    let info = {
+      ticker: "QLD",
+      name: " ProShares Ultra QQQ",
+      description: "This leveraged ProShares ETF seeks a return that is 2x the return of its underlying benchmark (target) for a single day, as measured from one NAV calculation to the next. Due to the compounding of daily returns, holding periods of greater than one day can result in returns that are significantly different than the target return and ProShares' returns over periods other than one day will likely differ in amount and possibly direction from the target return for the same period. "
+    }
+    fetchStockData("QQQ", info)
+  }
+  else if (tags.includes("Extremely High")) {
+    let info = {
+      ticker: "TECL",
+      name: " Direxion Daily Technology Bull 3X Shares ETF",
+      description: "The Direxion Daily Technology Bull (TECL) and Bear (TECS) 3X Shares seek daily investment results, before fees and expenses, of 300%, or 300% of the inverse (or opposite), of the performance of the Technology Select Sector Index. There is no guarantee the funds will meet their stated investment objectives.",
+    }
+    fetchStockData("TECL", info)
+  }
 }
 
-function fetchStockData(fundTicker) {
+function fetchStockData(fundTicker, info) {
   const APIkey = "MIDR3MRG2WBYRNQN"
-  let APIurl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${fundTicker}&apikey=${APIkey}`
+  let chartAPIurl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${fundTicker}&apikey=${APIkey}`
+  // let infoAPIurl = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${fundTicker}&apikey=${APIkey}`
   let dataObj = [];
-  fetch(APIurl).then(response => {
+  fetch(chartAPIurl).then(response => {
     return response.json();
   }).then(data => {
     for (let point in data["Time Series (Daily)"]) {
       dataObj.push({value: parseFloat(data["Time Series (Daily)"][point]["1. open"]), date: d3.timeParse("%Y-%m-%d")(point)})
     }
-    displayGraph(dataObj)
+    displayGraph(dataObj, info)
   })
+  // .then(() => {
+  //   fetch(infoAPIurl).then(response => {
+  //     console.log(response)
+  //     return response.json();
+  //   }).then(data => {
+  //     console.log(data)
+  //     displayGraph(dataObj, data)
+  //   })
+  // })
+
 
 }
 
-function displayGraph(dataObj) {
-
+function displayGraph(dataObj, info) {
+  console.log(info);
   let maxPrice = d3.max(dataObj, (d) => { return d.value});
   let minPrice = d3.min(dataObj, (d) => { return d.value});
 
@@ -93,4 +138,7 @@ function displayGraph(dataObj) {
       .x((d) => {return x(d.date) })
       .y((d) => {return y(d.value)})
     )
+
+
+  
 }
