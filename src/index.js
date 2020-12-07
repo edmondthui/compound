@@ -166,7 +166,7 @@ function displayGraph(dataObj, info) {
 
   chartInfo.append("div")
     .classed("info-title", true)
-    .text(info.name + ", " + info.ticker)
+    .text("Your matched fund is " + info.name + ", " + info.ticker)
 
   chartInfo.append("div")
     .classed("info-description", true)
@@ -204,11 +204,14 @@ function compoundingInterest(info, tags) {
     dataObj.push(data)
   }
 
+  var chartInfo = d3.select("#compound-interest-title").append("div")
+    .classed("compound-title", true)
+    .text(`You will have $${dataObj[dataObj.length-1].value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")} at retirement`)
+
   let maxPrice = d3.max(dataObj, (d) => { return d.value});
   let minPrice = d3.min(dataObj, (d) => { return d.value});
 
-
-  let margin = {top : 10, right: 30, bottom: 30, left: 80},
+  let margin = {top : 10, right: 30, bottom: 30, left: 100},
     width = window.innerWidth - margin.left - margin.right - 80,
     height = window.innerHeight - margin.top - margin.bottom - (window.innerHeight/2.5);
 
