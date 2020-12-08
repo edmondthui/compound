@@ -71,8 +71,9 @@ function dragDrop() {
 }
 
 function matchFund() {
+
   const remove = document.querySelectorAll(
-    ".draggable, .container, .droppable, .droppable-container, .showMatch, .choices-container"
+    ".draggable, .container, .droppable, .droppable-container, .showMatch, .choices-container, .parallax, #desk, #beach"
   );
   let makeVisible = document.querySelector(".fund-container");
   makeVisible.className += " make-visible";
@@ -119,6 +120,7 @@ function matchFund() {
     fetchStockData("TECL", info);
     compoundingInterest(info, tags);
   }
+  window.scroll({top: 0, left: 0, behavior: 'smooth'});
 }
 
 function fetchStockData(fundTicker, info) {

@@ -8,6 +8,7 @@
   padding: 0 100px;
   align-items: center;
   display: flex;
+  z-index: 10;
 }
 
 #header a {
@@ -19,7 +20,7 @@
 
 .choices-container {
   display: flex;
-  margin: 50px 100px;
+  margin: 0px 100px;
   justify-content: space-between;
   text-align: center;
   -webkit-touch-callout: none;
@@ -58,16 +59,12 @@
   height: 100px;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
-  bottom: 0;
-  left: 0;
   width: 100%;
   padding: 0 100px;
   box-sizing: border-box;
 }
 
 .dropped {
-  z-index: -1;
   margin: 0;
 }
 
@@ -75,6 +72,7 @@ body {
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
+  margin: 0;
 }
 
 .container {
@@ -86,24 +84,27 @@ body {
 
 .remove {
   display: none;
+  opacity: 0;
 }
 
 .match {
   opacity: 0;
   transition: opacity 500ms ease-in-out;
+  margin: 20px;
+}
+
+.match-container{
+  margin: 0 auto;
+  width: 200px;
 }
 
 .showMatch {
-  display: flex;
-  margin: 0px auto 10px auto;
   border-radius: 5px;
   background-color: darkgreen;
   color: white;
   width: 200px;
   height: 50px;
   border: 1px solid darkgreen;
-  align-items: center;
-  justify-content: center;
   font-weight: 700;
   font-size: 20px;
   opacity: 1;
@@ -235,4 +236,58 @@ body {
 
 .bar {
   fill: darkblue;
+}
+
+
+.parallax {
+  height: calc(100vh - 60px );
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+}
+
+.parallax img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+}
+
+#desk {
+  width: 100%;
+  object-fit: cover;
+  z-index: 2;
+  margin: 100px auto 0px auto;;
+}
+
+#cash1 {
+  margin-top: 250px;
+  margin-left: 300px;
+  z-index: 1;
+}
+
+#cash2 {
+  margin-top: 200px;
+  margin-left: 600px;
+  z-index: 1;
+}
+
+#cash3 {
+  margin-top: 400px;
+  margin-left: 800px;
+  z-index: 1;
+}
+
+#cash4 {
+  margin-top: 500px;
+  margin-left: 150px;
+  z-index: 1;
+}
+
+#cash5 {
+  margin-top: 400px;
+  margin-left: 500px;
+  z-index: 1;
 }

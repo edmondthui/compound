@@ -15,6 +15,23 @@
     <a href = '/compound'>₵ompound</a>
   </div>
 
+  <div class="parallax">
+    <img src="desk.png" alt="Desk" id="desk">
+    <img src="cash.png" alt="Cash" id="cash1">
+    <img src="cash.png" alt="Cash" id="cash2">
+    <img src="cash.png" alt="Cash" id="cash3">
+    <img src="cash.png" alt="Cash" id="cash4">
+    <img src="cash.png" alt="Cash" id="cash5">
+  </div>
+
+  <script type="text/javascript">
+    let desk = document.getElementById("desk")
+    window.addEventListener("scroll", ()=> {
+      let value = window.scrollY;
+      desk.style.top = value + "px";
+    })
+  </script>
+
   <div class="choices-container">
     <div>
       <h1>Age</h1>
@@ -64,7 +81,7 @@
     </div>
 
   </div>
-  <div>
+  <div class="match-container">
     <button class="match">Match With Fund</button>
   </div>
 
