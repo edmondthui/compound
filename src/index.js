@@ -62,7 +62,7 @@ function dragDrop() {
   );
   if (filled.length === 4) {
     let showButton = document.querySelector(".match");
-    showButton.className = "showMatch";
+    showButton.className += " showMatch";
     showButton.addEventListener("click", matchFund);
   }
 }
@@ -438,4 +438,10 @@ function createBudget(income, savings) {
         .toFixed(2)
         .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`
     );
+
+  let budgetgraph = d3
+    .select("#budget")
+    .append("div")
+    .classed("budget-graph-title", true)
+    .text("Budget Graph");
 }
