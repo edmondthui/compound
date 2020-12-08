@@ -420,17 +420,17 @@ function createBudget(income, savings) {
 
   let margin = {
       top: 10,
-      right: 50,
+      right: 0,
       bottom: 25,
-      left: 10
+      left: 80
   };
 
   let dataArr = [
-    {"name": "savings", "value": formattedSavings},
-    {"name": "housing", "value": housing},
-    {"name": "transportation", "value": transportation},
-    {"name": "food", "value": food},
-    {"name": "personal", "value": personal}
+    {"name": "Savings", "value": formattedSavings},
+    {"name": "Housing", "value": housing},
+    {"name": "Transportation", "value": transportation},
+    {"name": "Food", "value": food},
+    {"name": "Personal", "value": personal}
   ]
 
   let width = window.innerWidth - margin.left - margin.right - (window.innerWidth * .40),
@@ -445,12 +445,12 @@ function createBudget(income, savings) {
 
   let x = d3.scaleLinear()
     .range([0, width])
-    .domain([d3.max(dataArr, (d) => { return d.value }), 0])
+    .domain([0, d3.max(dataArr, (d) => { return d.value })])
 
   let y = d3.scaleBand()
     .range([height, 0], .1)
-    .padding(.5)
-    .domain(dataArr.map((d) => { return d.name}))
+    // .padding(.5)
+    .domain(dataArr.reverse().map((d) => { return d.name}))
   
   svg
   .append("g")
@@ -458,6 +458,18 @@ function createBudget(income, savings) {
   .call(d3.axisBottom(x));
 
   svg.append("g")
-  .attr("transform", "translate("+width+",  0 )")
-  .call(d3.axisRight(y))
+  .call(d3.axisLeft(y))
+
+  let g = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  
+  g.selectAll(".bar")
+    .data(dataArr)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", -margin.left)
+    .attr("y", (d) => {return y(d.name)})
+    .attr("width", (d) => {return x(d.value)})
+    .attr("height", 15)
 }
