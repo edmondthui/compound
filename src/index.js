@@ -20,16 +20,16 @@ function dragStart() {
   this.className += " dragging";
   if ([...this.classList].includes("age")) {
     let dropZone = document.getElementsByClassName("container age")[0];
-    dropZone.className += " highlight";
+    dropZone ? dropZone.className += " highlight" : "";
   } else if ([...this.classList].includes("risk")) {
     let dropZone = document.getElementsByClassName("container risk")[0];
-    dropZone.className += " highlight";
+    dropZone ? dropZone.className += " highlight" : "";
   } else if ([...this.classList].includes("income")) {
     let dropZone = document.getElementsByClassName("container income")[0];
-    dropZone.className += " highlight";
+    dropZone ? dropZone.className += " highlight" : "";
   } else if ([...this.classList].includes("retirement")) {
     let dropZone = document.getElementsByClassName("container retirement")[0];
-    dropZone.className += " highlight";
+    dropZone ? dropZone.className += " highlight" : "";
   }
   dragging = this;
   setTimeout(() => (this.className += " remove"), 0);
@@ -56,6 +56,9 @@ function dragDrop() {
   this.className = "dropped";
   if (this.children.length === 0) {
     this.append(dragging);
+  }
+  else {
+    this.replaceChild(dragging, this.children[0]);
   }
   let filled = [...droppable].filter(
     (droppable) => droppable.className === "dropped"
@@ -416,7 +419,7 @@ function createBudget(income, savings) {
     .select("#budget")
     .append("div")
     .classed("budget-graph-title", true)
-    .text("Budget Graph");
+    .text("Monthly Budget Graph");
 
   let margin = {
       top: 10,
