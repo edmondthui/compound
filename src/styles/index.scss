@@ -29,6 +29,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  height: calc(100vh - 220px)
 }
 
 .choices {
@@ -90,12 +91,12 @@ body {
 .match {
   opacity: 0;
   transition: opacity 500ms ease-in-out;
-  margin: 20px;
+  margin-bottom: 20px;
 }
 
 .match-container{
   margin: 0 auto;
-  width: 200px;
+  height: 70px;
 }
 
 .showMatch {
@@ -240,7 +241,7 @@ body {
 
 
 .parallax {
-  height: calc(100vh - 60px );
+  height: calc(100vh);
   display: flex;
   justify-content: center;
   position: relative;
