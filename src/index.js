@@ -72,7 +72,7 @@ function matchFund() {
     ".draggable, .container, .droppable, .droppable-container, .showMatch, .choices-container"
   );
   let makeVisible = document.querySelector(".fund-container");
-  makeVisible.className += " make-visible"
+  makeVisible.className += " make-visible";
   let tags = [...droppable].map((element) => element.innerText);
   remove.forEach((element) => (element.className += " remove"));
   if (tags.includes("Low")) {
@@ -164,7 +164,7 @@ function displayGraph(dataObj, info) {
   let x = d3
     .scaleTime()
     .domain(
-      d3.extent(dataObj, function (d) {
+      d3.extent(dataObj, (d) => {
         return d.date;
       })
     )
@@ -307,7 +307,7 @@ function compoundingInterest(info, tags) {
       window.innerHeight -
       margin.top -
       margin.bottom -
-      window.innerHeight / 2.5;
+      window.innerHeight / 2;
 
   let svg = d3
     .select("#compound-interest-graph")
@@ -320,7 +320,7 @@ function compoundingInterest(info, tags) {
   let x = d3
     .scaleLinear()
     .domain(
-      d3.extent(dataObj, function (d) {
+      d3.extent(dataObj, (d) => {
         return d.date;
       })
     )
@@ -346,10 +346,10 @@ function compoundingInterest(info, tags) {
         .y((d) => {
           return y(d.value);
         })
-    )    
+    )
     .attr("fill", "none")
     .attr("stroke", "darkblue")
-    .attr("stroke-width", 1.5)
+    .attr("stroke-width", 1.5);
 
   let length = path.node().getTotalLength();
 
@@ -365,18 +365,18 @@ function compoundingInterest(info, tags) {
     const scrolled = window.pageYOffset || document.documentElement.scrollTop;
     if (scrolled > scroll) {
       path
-      .attr("stroke-dasharray", length)
-      .attr("stroke-dashoffset", length)
-      .transition()
-      .duration(2000)
-      .attr("stroke-dashoffset", 0);
+        .attr("stroke-dasharray", length)
+        .attr("stroke-dashoffset", length)
+        .transition()
+        .duration(2000)
+        .attr("stroke-dashoffset", 0);
     } else {
       path
-      .attr("stroke-dasharray", length)
-      .attr("stroke-dashoffset", 0)
-      .transition()
-      .duration(2000)
-      .attr("stroke-dashoffset", length);
+        .attr("stroke-dasharray", length)
+        .attr("stroke-dashoffset", 0)
+        .transition()
+        .duration(2000)
+        .attr("stroke-dashoffset", length);
     }
     scroll = scrolled;
   });
@@ -385,63 +385,79 @@ function compoundingInterest(info, tags) {
 }
 
 function createBudget(income, savings) {
+  let formattedSavings = savings / 12;
+  let housing = ((income / 12) * 0.2);
+  let formattedIncome = "$" + income.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  let transportation = ((income / 12) * 0.15);
+  let food = ((income / 12) * 0.1);
+  let personal = ((income / 12) * 0.05);
   let budget = d3
     .select("#budget")
     .append("div")
     .classed("budget-title", true)
-    .text(
-      `$${income
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, "$&,")} Income Breakdown Per Month`
-    );
-  budget
-    .append("p")
-    .classed("budget-item", true)
-    .text(
-      `Savings: $${(savings / 12)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`
-    );
+    .text(`${formattedIncome} Income Budget Breakdown Per Month`);
+  budget.append("p").classed("budget-item", true).text(`Savings: $${formattedSavings.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`);
+
+  budget.append("p").classed("budget-item", true).text(`Housing: $${housing.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`);
 
   budget
     .append("p")
     .classed("budget-item", true)
-    .text(
-      `Housing: $${((income / 12) * 0.2)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`
-    );
+    .text(`Transportation: $${transportation.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`);
+
+  budget.append("p").classed("budget-item", true).text(`Food: $${food.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`);
 
   budget
     .append("p")
     .classed("budget-item", true)
-    .text(
-      `Transportation: $${((income / 12) * 0.15)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`
-    );
+    .text(`Personal & Miscellaneous: $${personal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`);
 
-  budget
-    .append("p")
-    .classed("budget-item", true)
-    .text(
-      `Food: $${((income / 12) * 0.1)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`
-    );
-
-  budget
-    .append("p")
-    .classed("budget-item", true)
-    .text(
-      `Personal & Miscellaneous: $${((income / 12) * 0.05)
-        .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`
-    );
-
-  let budgetgraph = d3
+  let budgetTitle = d3
     .select("#budget")
     .append("div")
     .classed("budget-graph-title", true)
     .text("Budget Graph");
+
+  let margin = {
+      top: 10,
+      right: 50,
+      bottom: 25,
+      left: 10
+  };
+
+  let dataArr = [
+    {"name": "savings", "value": formattedSavings},
+    {"name": "housing", "value": housing},
+    {"name": "transportation", "value": transportation},
+    {"name": "food", "value": food},
+    {"name": "personal", "value": personal}
+  ]
+
+  let width = window.innerWidth - margin.left - margin.right - (window.innerWidth * .40),
+      height = 200 - margin.top - margin.bottom;
+
+  let svg = budgetTitle.append("svg")
+    .classed("budget-graph", true)
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
+
+  let x = d3.scaleLinear()
+    .range([0, width])
+    .domain([d3.max(dataArr, (d) => { return d.value }), 0])
+
+  let y = d3.scaleBand()
+    .range([height, 0], .1)
+    .padding(.5)
+    .domain(dataArr.map((d) => { return d.name}))
+  
+  svg
+  .append("g")
+  .attr("transform", "translate(0," + height + ")")
+  .call(d3.axisBottom(x));
+
+  svg.append("g")
+  .attr("transform", "translate("+width+",  0 )")
+  .call(d3.axisRight(y))
 }

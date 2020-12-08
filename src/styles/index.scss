@@ -100,10 +100,11 @@ body {
   opacity: 1;
 }
 
-.showMatch:hover{
-  transform: scale(1.20);
+.showMatch:hover {
+  transform: scale(1.2);
   transition: 0.3s;
   background-color: #001900;
+  border: 1px solid #001900;
 }
 
 .showMatch:hover {
@@ -124,14 +125,12 @@ body {
   opacity: 1;
 }
 
-
-
-
 #fund-graph {
   display: flex;
   justify-content: center;
   width: 100%;
   position: relative;
+
 }
 
 #fund-info {
@@ -161,12 +160,13 @@ body {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 450px;
+  height: 390px;
   position: relative;
 }
 
 .fund-graph-info {
-  height: calc(100vh - 60px)
+  height: calc(100vh - 60px);
+  margin-bottom: 10px;
 }
 
 .hovering {
@@ -193,9 +193,8 @@ body {
   margin-top: 10px;
 }
 
-
 #budget {
-  width: 85%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
@@ -220,3 +219,8 @@ body {
   margin: 5px;
 }
 
+.budget-graph-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
