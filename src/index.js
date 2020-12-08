@@ -71,6 +71,8 @@ function matchFund() {
   const remove = document.querySelectorAll(
     ".draggable, .container, .droppable, .droppable-container, .showMatch, .choices-container"
   );
+  let makeVisible = document.querySelector(".fund-container");
+  makeVisible.className += " make-visible"
   let tags = [...droppable].map((element) => element.innerText);
   remove.forEach((element) => (element.className += " remove"));
   if (tags.includes("Low")) {
