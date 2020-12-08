@@ -218,18 +218,18 @@ function compoundingInterest(info, tags) {
   let savings = 0;
   if (income >= 200000) {
     income = 250000;
-    savings = income * 0.7;
+    savings = income * 0.5;
   }
   if (income >= 100000) {
-    savings = income * 0.7;
+    savings = income * 0.5;
   } else if (income >= 60000) {
-    savings = income * 0.6;
+    savings = income * 0.5;
   } else if (income >= 40000) {
     savings = income * 0.5;
   } else if (income >= 20000) {
-    savings = income * 0.3;
+    savings = income * 0.5;
   } else {
-    savings = (20000 / 12) * 0.1;
+    savings = income * 0.5;
   }
   let dataObj = [];
   for (let i = 0; i < time; i++) {
@@ -247,7 +247,7 @@ function compoundingInterest(info, tags) {
     .text(
       `You will have $${dataObj[dataObj.length - 1].value
         .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, "$&,")} at retirement`
+        .replace(/\d(?=(\d{3})+\.)/g, "$&,")} at retirement due to compounding at ${rate*100}%`
     );
 
   let maxPrice = d3.max(dataObj, (d) => {
@@ -306,4 +306,34 @@ function compoundingInterest(info, tags) {
           return y(d.value);
         })
     );
+
+  createBudget(income, savings);
+}
+
+function createBudget(income, savings) {
+  let budget = d3
+  .select("#budget")
+  .append("div")
+  .classed("budget-title", true)
+  .text(`$${income.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")} Income Breakdown Per Month`);
+  budget.append("p")
+  .classed("budget-item", true)
+  .text(`Savings: $${(savings/12).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`)
+
+  budget.append("p")
+  .classed("budget-item", true)
+  .text(`Housing: $${(income/12 * .20).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`)
+
+  budget.append("p")
+  .classed("budget-item", true)
+  .text(`Transportation: $${(income/12 * .15).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`)
+
+  budget.append("p")
+  .classed("budget-item", true)
+  .text(`Food: $${(income/12 * .10).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`)
+
+  budget.append("p")
+  .classed("budget-item", true)
+  .text(`Personal & Miscellaneous: $${(income/12 * .05).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`)
+
 }
