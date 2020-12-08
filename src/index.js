@@ -473,6 +473,28 @@ function createBudget(income, savings) {
     .attr("class", "bar")
     .attr("x", -margin.left)
     .attr("y", (d) => {return y(d.name)})
-    .attr("width", (d) => {return x(d.value)})
+    .attr("width", (d) => 0)
     .attr("height", 15)
+
+  svg.selectAll("rect")
+    .transition()
+    .duration(2000)
+    .attr("width", (d) => {return x(d.value)})
+
+  window.addEventListener("scroll", () => {
+    const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrolled > scroll) {
+      svg.selectAll("rect")
+        .transition()
+        .duration(2000)
+        .attr("width", (d) => {return x(d.value)})
+    } else {
+      svg.selectAll("rect")
+        .transition()
+        .duration(2000)
+        .attr("width", 0)
+    }
+    scroll = scrolled;
+  });
+    
 }
