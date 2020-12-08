@@ -3,238 +3,307 @@ import "./styles/index.scss";
 const draggable = document.querySelectorAll(".draggable");
 const droppable = document.querySelectorAll(".container");
 
-draggable.forEach(element => element.addEventListener("dragstart", dragStart))
-draggable.forEach(element => element.addEventListener("dragend", dragEnd))
-droppable.forEach(element => {
-  element.addEventListener("dragover", dragOver)
-  element.addEventListener("dragenter", dragEnter)
-  element.addEventListener("dragleave", dragLeave)
-  element.addEventListener("drop", dragDrop)
-})
+draggable.forEach((element) =>
+  element.addEventListener("dragstart", dragStart)
+);
+draggable.forEach((element) => element.addEventListener("dragend", dragEnd));
+droppable.forEach((element) => {
+  element.addEventListener("dragover", dragOver);
+  element.addEventListener("dragenter", dragEnter);
+  element.addEventListener("dragleave", dragLeave);
+  element.addEventListener("drop", dragDrop);
+});
 
 let dragging;
 
 function dragStart() {
   this.className += " dragging";
   if ([...this.classList].includes("age")) {
-    let dropZone = document.getElementsByClassName("container age")[0]
-    dropZone.className += " highlight"
-  }
-  else if ([...this.classList].includes("risk")) {
-    let dropZone = document.getElementsByClassName("container risk")[0]
-    dropZone.className += " highlight"
-  }
-  else if ([...this.classList].includes("income")) {
-    let dropZone = document.getElementsByClassName("container income")[0]
-    dropZone.className += " highlight"
-  }
-  else if ([...this.classList].includes("retirement")) {
-    let dropZone = document.getElementsByClassName("container retirement")[0]
-    dropZone.className += " highlight"
+    let dropZone = document.getElementsByClassName("container age")[0];
+    dropZone.className += " highlight";
+  } else if ([...this.classList].includes("risk")) {
+    let dropZone = document.getElementsByClassName("container risk")[0];
+    dropZone.className += " highlight";
+  } else if ([...this.classList].includes("income")) {
+    let dropZone = document.getElementsByClassName("container income")[0];
+    dropZone.className += " highlight";
+  } else if ([...this.classList].includes("retirement")) {
+    let dropZone = document.getElementsByClassName("container retirement")[0];
+    dropZone.className += " highlight";
   }
   dragging = this;
-  setTimeout(() => this.className += " remove", 0)
+  setTimeout(() => (this.className += " remove"), 0);
 }
 
 function dragEnd() {
-  this.className = "draggable"
+  this.className = "draggable";
 }
 
 function dragEnter(e) {
-  e.preventDefault()
+  e.preventDefault();
   this.className += " hovering";
 }
 
 function dragOver(e) {
-  e.preventDefault()
+  e.preventDefault();
 }
 
 function dragLeave() {
-  this.className = "container"
+  this.className = "container";
 }
 
 function dragDrop() {
   this.className = "dropped";
-  if (this.children.length === 0 ) {
-    this.append(dragging)
+  if (this.children.length === 0) {
+    this.append(dragging);
   }
-  let filled = [...droppable].filter(droppable => droppable.className === "dropped")
+  let filled = [...droppable].filter(
+    (droppable) => droppable.className === "dropped"
+  );
   if (filled.length === 4) {
-    let showButton = document.querySelector(".match")
-    showButton.className = "showMatch"
-    showButton.addEventListener("click", matchFund)
+    let showButton = document.querySelector(".match");
+    showButton.className = "showMatch";
+    showButton.addEventListener("click", matchFund);
   }
 }
 
 function matchFund() {
-  const remove = document.querySelectorAll(".draggable, .container, .droppable, .droppable-container, .showMatch, .choices-container");
-  let tags = [...droppable].map(element => element.innerText);
-  remove.forEach(element => element.className += " remove")
+  const remove = document.querySelectorAll(
+    ".draggable, .container, .droppable, .droppable-container, .showMatch, .choices-container"
+  );
+  let tags = [...droppable].map((element) => element.innerText);
+  remove.forEach((element) => (element.className += " remove"));
   if (tags.includes("Low")) {
     let info = {
       ticker: "VTI",
       name: "Vanguard 500 Index Fund ETF",
-      description: "Seeks to track the performance of the CRSP US Total Market Index. Large-, mid-, and small-cap equity diversified across growth and value styles. Employs a passively managed, index-sampling strategy. The fund remains fully invested. Low expenses minimize net tracking error.",
-      return: .1402
-    }
-    fetchStockData("VTI", info)
-    compoundingInterest(info, tags)
-  }
-  else if (tags.includes("Medium")) {
+      description:
+        "The fund employs an indexing investment approach designed to track the performance of the CRSP US Total Market Index, which represents approximately 100% of the investable U.S. stock market and includes large-, mid-, small-, and micro-cap stocks regularly traded on the New York Stock Exchange and Nasdaq. It invests by sampling the index, meaning that it holds a broadly diversified collection of securities that, in the aggregate, approximates the full index in terms of key characteristics. EVERY fund, whether mutual fund or index fund has a hidden management fee. The management fee for VTI  is 0.05%.  That is THE lowest management fee possible. Mutual Funds typically have fees in the vicinity of 1.35%. In all, the fund holds more than 3,500 stocks in its portfolio and has a total of $672 billion of investor assets -- so this is a popular, widely held index fund product. It's also important to mention that this is a market-cap-weighted index fund, meaning that larger companies make up a larger proportion of the ETF's investments. Top holdings include companies like Microsoft, Apple, Amazon, Alphabet, and Berkshire Hathaway, just to name a few.",
+      return: 0.1402,
+    };
+    fetchStockData("VTI", info);
+    compoundingInterest(info, tags);
+  } else if (tags.includes("Medium")) {
     let info = {
       ticker: "VOO",
       name: "Vanguard 500 Index Fund ETF",
-      description: "Invests in stocks in the S&P 500 Index, representing 500 of the largest U.S. companies. Goal is to closely track the index’s return, which is considered a gauge of overall U.S. stock returns. Offers high potential for investment growth; share value rises and falls more sharply than that of funds holding bonds. More appropriate for long-term goals where your money’s growth is essential.",
-      return: .1502
-    }
-    fetchStockData("VOO", info)
-    compoundingInterest(info, tags)
-  }
-  else if (tags.includes("High")) {
+      description:
+        "VOO invests in stocks in the S&P 500 Index, representing 500 of the largest U.S. companies. The goal is to closely track the S&P 500's returns. VOO offers high potential for investment growth and shares value rises and falls more sharply than that of funds holding bonds. This fund is more appropriate for long-term goals where your money’s growth is essential. In total, the fund has over $100 billion in assets under management. The fund is probably one of the safest in the equity world as the companies on this list are very unlikely to go under. However, these securities are unlikely to grow very much either as they are already pretty large and have probably seen their quickest growing days in years past, but most do pay out solid dividends which should help to ease the pain of this realization. Overall, VOO is a quality choice for investors seeking broad mega and large cap exposure and it is more diversified than most, containing just over 500 securities in total. As a result, this fund could serve as a building block for many portfolios making it an excellent choice for many buy and holders, especially for those looking to keep costs at a minimum.",
+      return: 0.1502,
+    };
+    fetchStockData("VOO", info);
+    compoundingInterest(info, tags);
+  } else if (tags.includes("High")) {
     let info = {
       ticker: "QLD",
       name: " ProShares Ultra QQQ",
-      description: "This leveraged ProShares ETF seeks a return that is 2x the return of its underlying benchmark (target) for a single day, as measured from one NAV calculation to the next. Due to the compounding of daily returns, holding periods of greater than one day can result in returns that are significantly different than the target return and ProShares' returns over periods other than one day will likely differ in amount and possibly direction from the target return for the same period.",
-      return: .2405
-    }
-    fetchStockData("QQQ", info)
-    compoundingInterest(info, tags)
-  }
-  else if (tags.includes("Extremely High")) {
+      description:
+        "The Fund seeks daily investment results, before fees and expenses, that correspond to two times (2x) the return of the Nasdaq-100 Index (the Index) for a single day. The Index includes 100 of the largest domestic and international non-financial companies listed on The Nasdaq Stock Market based on market capitalization. This leveraged ProShares ETF seeks a return that is 2x the return of its underlying benchmark (target) for a single day, as measured from one NAV calculation to the next. Due to the compounding of daily returns, holding periods of greater than one day can result in returns that are significantly different than the target return and ProShares' returns over periods other than one day will likely differ in amount and possibly direction from the target return for the same period.",
+      return: 0.2405,
+    };
+    fetchStockData("QQQ", info);
+    compoundingInterest(info, tags);
+  } else if (tags.includes("Extremely High")) {
     let info = {
       ticker: "TECL",
       name: " Direxion Daily Technology Bull 3X Shares ETF",
-      description: "The Direxion Daily Technology Bull (TECL) and Bear (TECS) 3X Shares seek daily investment results, before fees and expenses, of 300%, or 300% of the inverse (or opposite), of the performance of the Technology Select Sector Index. There is no guarantee the funds will meet their stated investment objectives.",
-      return: .3739
-    }
-    fetchStockData("TECL", info)
-    compoundingInterest(info, tags)
+      description:
+        "TECL attempts to deliver triple the daily returns of the Technology Select Sector Index, a benchmark that's essentially an ode to Apple (NASDAQ: AAPL) and Microsoft (NASDAQ: MSFT) as that duo combine for more than 44% of the index's weight. The Direxion Daily Technology Bull (TECL) and Bear (TECS) 3X Shares seek daily investment results, before fees and expenses, of 300%, or 300% of the inverse (or opposite), of the performance of the Technology Select Sector Index. There is no guarantee the funds will meet their stated investment objectives. The fund invests at least 80% of its net assets (plus borrowing for investment purposes) in financial instruments, such as swap agreements, and securities of the index, ETFs that track the index and other financial instruments that provide daily leveraged exposure to the index or ETFs that track the index. The index includes domestic companies from the technology sector. It is non-diversified.",
+      return: 0.3739,
+    };
+    fetchStockData("TECL", info);
+    compoundingInterest(info, tags);
   }
-  
 }
 
 function fetchStockData(fundTicker, info) {
-  const APIkey = "MIDR3MRG2WBYRNQN"
-  let chartAPIurl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${fundTicker}&apikey=${APIkey}`
+  const APIkey = "MIDR3MRG2WBYRNQN";
+  let chartAPIurl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${fundTicker}&apikey=${APIkey}`;
   let dataObj = [];
-  fetch(chartAPIurl).then(response => {
-    return response.json();
-  }).then(data => {
-    for (let point in data["Time Series (Daily)"]) {
-      dataObj.push({value: parseFloat(data["Time Series (Daily)"][point]["1. open"]), date: d3.timeParse("%Y-%m-%d")(point)})
-    }
-    displayGraph(dataObj, info)
-
-  })
+  fetch(chartAPIurl)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      for (let point in data["Time Series (Daily)"]) {
+        dataObj.push({
+          value: parseFloat(data["Time Series (Daily)"][point]["1. open"]),
+          date: d3.timeParse("%Y-%m-%d")(point),
+        });
+      }
+      displayGraph(dataObj, info);
+    });
 }
 
 function displayGraph(dataObj, info) {
-  let maxPrice = d3.max(dataObj, (d) => { return d.value});
-  let minPrice = d3.min(dataObj, (d) => { return d.value});
+  let maxPrice = d3.max(dataObj, (d) => {
+    return d.value;
+  });
+  let minPrice = d3.min(dataObj, (d) => {
+    return d.value;
+  });
 
-
-  let margin = {top : 10, right: 30, bottom: 30, left: 60},
+  let margin = { top: 10, right: 30, bottom: 30, left: 60 },
     width = window.innerWidth - margin.left - margin.right - 20,
-    height = window.innerHeight - margin.top - margin.bottom - (window.innerHeight/2.5);
+    height =
+      window.innerHeight -
+      margin.top -
+      margin.bottom -
+      window.innerHeight / 2.5;
 
-  let svg = d3.select("#fund-graph").append("svg")
+  let svg = d3
+    .select("#fund-graph")
+    .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
-      .attr("transform", "translate(" + margin.left + ", "+margin.top +")");
+    .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
 
-  let x = d3.scaleTime()
-    .domain(d3.extent(dataObj, function(d) {return d.date;}))
-    .range([0,width])
-  svg.append("g").attr("transform", "translate(0,"+ height + ")").call(d3.axisBottom(x))
+  let x = d3
+    .scaleTime()
+    .domain(
+      d3.extent(dataObj, function (d) {
+        return d.date;
+      })
+    )
+    .range([0, width]);
+  svg
+    .append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
 
-  let y = d3.scaleLinear()
-    .domain([minPrice, maxPrice])
-    .range([ height, 0 ]);
+  let y = d3.scaleLinear().domain([minPrice, maxPrice]).range([height, 0]);
   svg.append("g").call(d3.axisLeft(y));
 
-  svg.append("path").datum(dataObj).attr("fill", "none").attr("stroke", "darkblue").attr("stroke-width", 1.5)
-    .attr("d", d3.line()
-      .x((d) => {return x(d.date) })
-      .y((d) => {return y(d.value)})
-    )
+  svg
+    .append("path")
+    .datum(dataObj)
+    .attr("fill", "none")
+    .attr("stroke", "darkblue")
+    .attr("stroke-width", 1.5)
+    .attr(
+      "d",
+      d3
+        .line()
+        .x((d) => {
+          return x(d.date);
+        })
+        .y((d) => {
+          return y(d.value);
+        })
+    );
 
-  var chartInfo = d3.select("#fund-info").append("div")
+  var chartInfo = d3
+    .select("#fund-info")
+    .append("div")
     .attr("width", width + margin.left + margin.right)
     .attr("height", window.innerHeight - height - margin.top - margin.bottom)
-    .classed("info-container", true)
+    .classed("info-container", true);
 
-  chartInfo.append("div")
+  chartInfo
+    .append("div")
     .classed("info-title", true)
-    .text("Your matched fund is " + info.name + ", " + info.ticker)
+    .text("Your matched fund is " + info.name + ", " + info.ticker);
 
-  chartInfo.append("div")
+  chartInfo
+    .append("div")
     .classed("info-description", true)
-    .text(info.description)
-  
+    .text(info.description);
 }
 
 function compoundingInterest(info, tags) {
-  let rate = info.return
-  let time = parseInt(tags[tags.length-1]) - parseInt(tags[0])
-  let income = parseInt(tags[2].slice(1))
+  let rate = info.return;
+  let time = parseInt(tags[tags.length - 1]) - parseInt(tags[0]);
+  let income = parseInt(tags[2].slice(1));
   let savings = 0;
   if (income >= 200000) {
     income = 250000;
-    savings = income * .70
+    savings = income * 0.7;
   }
   if (income >= 100000) {
-    savings = income * .70;
+    savings = income * 0.7;
+  } else if (income >= 60000) {
+    savings = income * 0.6;
+  } else if (income >= 40000) {
+    savings = income * 0.5;
+  } else if (income >= 20000) {
+    savings = income * 0.3;
+  } else {
+    savings = (20000 / 12) * 0.1;
   }
-  else if (income >= 60000) {
-    savings = income * .60
-  }
-  else if (income >= 40000) {
-    savings = income * .50
-  }
-  else if (income >= 20000) {
-    savings = income * .30
-  }
-  else {
-    savings = 20000/12 * .10
-  }
-  let dataObj = []
-  for (let i = 0 ; i < time ; i ++) {
-    let data = {date: i, value: (dataObj[i-1] ? dataObj[i-1].value* (1+rate) : 0) + (savings)}
-    dataObj.push(data)
+  let dataObj = [];
+  for (let i = 0; i < time; i++) {
+    let data = {
+      date: i,
+      value: (dataObj[i - 1] ? dataObj[i - 1].value * (1 + rate) : 0) + savings,
+    };
+    dataObj.push(data);
   }
 
-  var chartInfo = d3.select("#compound-interest-title").append("div")
+  var chartInfo = d3
+    .select("#compound-interest-title")
+    .append("div")
     .classed("compound-title", true)
-    .text(`You will have $${dataObj[dataObj.length-1].value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")} at retirement`)
+    .text(
+      `You will have $${dataObj[dataObj.length - 1].value
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, "$&,")} at retirement`
+    );
 
-  let maxPrice = d3.max(dataObj, (d) => { return d.value});
-  let minPrice = d3.min(dataObj, (d) => { return d.value});
+  let maxPrice = d3.max(dataObj, (d) => {
+    return d.value;
+  });
+  let minPrice = d3.min(dataObj, (d) => {
+    return d.value;
+  });
 
-  let margin = {top : 10, right: 30, bottom: 30, left: 100},
+  let margin = { top: 10, right: 30, bottom: 30, left: 100 },
     width = window.innerWidth - margin.left - margin.right - 80,
-    height = window.innerHeight - margin.top - margin.bottom - (window.innerHeight/2.5);
+    height =
+      window.innerHeight -
+      margin.top -
+      margin.bottom -
+      window.innerHeight / 2.5;
 
-  let svg = d3.select("#compound-interest-graph").append("svg")
+  let svg = d3
+    .select("#compound-interest-graph")
+    .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
-      .attr("transform", "translate(" + margin.left + ", "+margin.top +")");
+    .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
 
-  let x = d3.scaleLinear()
-    .domain(d3.extent(dataObj, function(d) {return d.date;}))
-    .range([0,width])
-  svg.append("g").attr("transform", "translate(0,"+ height + ")").call(d3.axisBottom(x))
+  let x = d3
+    .scaleLinear()
+    .domain(
+      d3.extent(dataObj, function (d) {
+        return d.date;
+      })
+    )
+    .range([0, width]);
+  svg
+    .append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
 
-  let y = d3.scaleLinear()
-    .domain([minPrice, maxPrice])
-    .range([ height, 0 ]);
+  let y = d3.scaleLinear().domain([minPrice, maxPrice]).range([height, 0]);
   svg.append("g").call(d3.axisLeft(y));
 
-  svg.append("path").datum(dataObj).attr("fill", "none").attr("stroke", "darkblue").attr("stroke-width", 1.5)
-    .attr("d", d3.line()
-      .x((d) => {return x(d.date) })
-      .y((d) => {return y(d.value)})
-    )
-
+  svg
+    .append("path")
+    .datum(dataObj)
+    .attr("fill", "none")
+    .attr("stroke", "darkblue")
+    .attr("stroke-width", 1.5)
+    .attr(
+      "d",
+      d3
+        .line()
+        .x((d) => {
+          return x(d.date);
+        })
+        .y((d) => {
+          return y(d.value);
+        })
+    );
 }
