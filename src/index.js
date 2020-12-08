@@ -175,12 +175,9 @@ function displayGraph(dataObj, info) {
   let y = d3.scaleLinear().domain([minPrice, maxPrice]).range([height, 0]);
   svg.append("g").call(d3.axisLeft(y));
 
-  svg
+  let path = svg
     .append("path")
     .datum(dataObj)
-    .attr("fill", "none")
-    .attr("stroke", "darkblue")
-    .attr("stroke-width", 1.5)
     .attr(
       "d",
       d3
@@ -191,9 +188,21 @@ function displayGraph(dataObj, info) {
         .y((d) => {
           return y(d.value);
         })
-    );
+    )
+    .attr("fill", "none")
+    .attr("stroke", "darkblue")
+    .attr("stroke-width", 1.5);
 
-  var chartInfo = d3
+  let length = path.node().getTotalLength();
+
+  path
+    .attr("stroke-dasharray", length)
+    .attr("stroke-dashoffset", length)
+    .transition()
+    .duration(2000)
+    .attr("stroke-dashoffset", 0);
+
+  let chartInfo = d3
     .select("#fund-info")
     .append("div")
     .attr("width", width + margin.left + margin.right)
@@ -209,6 +218,27 @@ function displayGraph(dataObj, info) {
     .append("div")
     .classed("info-description", true)
     .text(info.description);
+
+  let scroll = 0;
+  window.addEventListener("scroll", () => {
+    const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrolled > scroll) {
+      path
+        .attr("stroke-dasharray", length)
+        .attr("stroke-dashoffset", 0)
+        .transition()
+        .duration(2000)
+        .attr("stroke-dashoffset", length);
+    } else {
+      path
+        .attr("stroke-dasharray", length)
+        .attr("stroke-dashoffset", length)
+        .transition()
+        .duration(2000)
+        .attr("stroke-dashoffset", 0);
+    }
+    scroll = scrolled;
+  });
 }
 
 function compoundingInterest(info, tags) {
@@ -219,14 +249,23 @@ function compoundingInterest(info, tags) {
   if (income >= 200000) {
     income = 250000;
     savings = income * 0.5;
-  }
-  if (income >= 100000) {
+  } else if (income >= 150000) {
+    income = 175000;
+    savings = income * 0.5;
+  } else if (income >= 100000) {
+    income = 125000;
+    savings = income * 0.5;
+  } else if (income >= 80000) {
+    income = 90000;
     savings = income * 0.5;
   } else if (income >= 60000) {
+    income = 70000;
     savings = income * 0.5;
   } else if (income >= 40000) {
+    income = 50000;
     savings = income * 0.5;
   } else if (income >= 20000) {
+    income = 30000;
     savings = income * 0.5;
   } else {
     savings = income * 0.5;
@@ -247,7 +286,10 @@ function compoundingInterest(info, tags) {
     .text(
       `You will have $${dataObj[dataObj.length - 1].value
         .toFixed(2)
-        .replace(/\d(?=(\d{3})+\.)/g, "$&,")} at retirement due to compounding at ${rate*100}%`
+        .replace(
+          /\d(?=(\d{3})+\.)/g,
+          "$&,"
+        )} at retirement due to compounding at ${rate * 100}%`
     );
 
   let maxPrice = d3.max(dataObj, (d) => {
@@ -289,12 +331,9 @@ function compoundingInterest(info, tags) {
   let y = d3.scaleLinear().domain([minPrice, maxPrice]).range([height, 0]);
   svg.append("g").call(d3.axisLeft(y));
 
-  svg
+  let path = svg
     .append("path")
     .datum(dataObj)
-    .attr("fill", "none")
-    .attr("stroke", "darkblue")
-    .attr("stroke-width", 1.5)
     .attr(
       "d",
       d3
@@ -305,35 +344,96 @@ function compoundingInterest(info, tags) {
         .y((d) => {
           return y(d.value);
         })
-    );
+    )    
+    .attr("fill", "none")
+    .attr("stroke", "darkblue")
+    .attr("stroke-width", 1.5)
+
+  let length = path.node().getTotalLength();
+
+  path
+    .attr("stroke-dasharray", length)
+    .attr("stroke-dashoffset", length)
+    .transition()
+    .duration(2000)
+    .attr("stroke-dashoffset", 0);
+
+  let scroll = 0;
+  window.addEventListener("scroll", () => {
+    const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+    if (scrolled > scroll) {
+      path
+      .attr("stroke-dasharray", length)
+      .attr("stroke-dashoffset", length)
+      .transition()
+      .duration(2000)
+      .attr("stroke-dashoffset", 0);
+    } else {
+      path
+      .attr("stroke-dasharray", length)
+      .attr("stroke-dashoffset", 0)
+      .transition()
+      .duration(2000)
+      .attr("stroke-dashoffset", length);
+    }
+    scroll = scrolled;
+  });
 
   createBudget(income, savings);
 }
 
 function createBudget(income, savings) {
   let budget = d3
-  .select("#budget")
-  .append("div")
-  .classed("budget-title", true)
-  .text(`$${income.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")} Income Breakdown Per Month`);
-  budget.append("p")
-  .classed("budget-item", true)
-  .text(`Savings: $${(savings/12).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`)
+    .select("#budget")
+    .append("div")
+    .classed("budget-title", true)
+    .text(
+      `$${income
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, "$&,")} Income Breakdown Per Month`
+    );
+  budget
+    .append("p")
+    .classed("budget-item", true)
+    .text(
+      `Savings: $${(savings / 12)
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`
+    );
 
-  budget.append("p")
-  .classed("budget-item", true)
-  .text(`Housing: $${(income/12 * .20).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`)
+  budget
+    .append("p")
+    .classed("budget-item", true)
+    .text(
+      `Housing: $${((income / 12) * 0.2)
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`
+    );
 
-  budget.append("p")
-  .classed("budget-item", true)
-  .text(`Transportation: $${(income/12 * .15).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`)
+  budget
+    .append("p")
+    .classed("budget-item", true)
+    .text(
+      `Transportation: $${((income / 12) * 0.15)
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`
+    );
 
-  budget.append("p")
-  .classed("budget-item", true)
-  .text(`Food: $${(income/12 * .10).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`)
+  budget
+    .append("p")
+    .classed("budget-item", true)
+    .text(
+      `Food: $${((income / 12) * 0.1)
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`
+    );
 
-  budget.append("p")
-  .classed("budget-item", true)
-  .text(`Personal & Miscellaneous: $${(income/12 * .05).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`)
-
+  budget
+    .append("p")
+    .classed("budget-item", true)
+    .text(
+      `Personal & Miscellaneous: $${((income / 12) * 0.05)
+        .toFixed(2)
+        .replace(/\d(?=(\d{3})+\.)/g, "$&,")}`
+    );
 }
