@@ -1,5 +1,5 @@
 # Compound
-[Live Demo](#)  
+[Live Demo](https://edmondthui.github.io/compound/)  
 Compound is an app that lets you plan your financial future. Just drag and drop some information into your plan and click generate to have a investing plan and budget generated for you!
 
 ## Technologies Used
