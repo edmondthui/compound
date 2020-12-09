@@ -29,7 +29,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  height: calc(100vh - 270px)
+  height: calc(100vh - 270px);
 }
 
 .choices {
@@ -94,7 +94,7 @@ body {
   margin-bottom: 20px;
 }
 
-.match-container{
+.match-container {
   margin: 0 auto;
   height: 70px;
 }
@@ -123,19 +123,46 @@ body {
 }
 
 .fund-container {
-  width: 0px;
   position: absolute;
   top: 0;
   left: 0;
   margin-top: 60px;
   z-index: -1;
   opacity: 0;
-  transition: all 2s ease-in-out;
+  transition: opacity 2s ease-in-out;
 }
 
 .make-visible {
-  width: 100%;
+  -webkit-animation: slideIn 2s forwards;
+  -moz-animation: slideIn 2s forwards;
+  animation: slideIn 2s forwards;
   opacity: 1;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(-2000px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes slideIn {
+  0% {
+    transform: translateX(-2000px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@-moz-keyframes slideIn {
+  0% {
+    transform: translateX(-2000px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 #fund-graph {
@@ -165,22 +192,28 @@ body {
 }
 
 .budget-container {
-
   display: flex;
+}
+
+.compound-container {
+  height: calc(100vh - 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 #compound-interest-graph {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 390px;
+  height: 50%;
   position: relative;
 }
 
-
 .fund-graph-info {
   height: calc(100vh - 60px);
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .hovering {
@@ -212,7 +245,6 @@ body {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  margin-bottom: 20px;
 }
 
 .budget-title {
@@ -243,7 +275,6 @@ body {
   fill: darkblue;
 }
 
-
 .parallax {
   height: calc(100vh);
   display: flex;
@@ -264,7 +295,7 @@ body {
   width: 100%;
   object-fit: cover;
   z-index: 2;
-  margin: 100px auto 0px auto;;
+  margin: 100px auto 0px auto;
 }
 
 #cash1 {
@@ -321,7 +352,11 @@ body {
 }
 
 .welcome {
-  background-image: linear-gradient(to right, rgba(115, 203, 230, 0.8), rgba(250, 233, 76, 0.8));
+  background-image: linear-gradient(
+    to right,
+    rgba(115, 203, 230, 0.8),
+    rgba(250, 233, 76, 0.8)
+  );
   z-index: 3;
   display: flex;
   justify-content: center;
