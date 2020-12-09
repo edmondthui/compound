@@ -29,7 +29,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  height: calc(100vh - 220px)
+  height: calc(100vh - 270px)
 }
 
 .choices {
@@ -303,10 +303,17 @@ body {
 
 .welcome-button {
   opacity: 1;
-  width: 400px;
+  width: 450px;
   height: 40px;
   font-weight: 700;
   border-radius: 8px;
+  font-size: 18px;
+  border: 1px solid white;
+  outline: none;
+}
+
+.welcome-button:hover {
+  cursor: pointer;
 }
 
 .welcome {
@@ -320,3 +327,8 @@ body {
   height: 100%;
 }
 
+.explaination {
+  font-size: 20px;
+  margin: 0px auto;
+  margin-top: 20px;
+}

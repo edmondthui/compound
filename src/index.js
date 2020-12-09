@@ -6,6 +6,7 @@ const droppable = document.querySelectorAll(".container");
 draggable.forEach((element) =>
   element.addEventListener("dragstart", dragStart)
 );
+
 draggable.forEach((element) => element.addEventListener("dragend", dragEnd));
 droppable.forEach((element) => {
   element.addEventListener("dragover", dragOver);
@@ -13,6 +14,13 @@ droppable.forEach((element) => {
   element.addEventListener("dragleave", dragLeave);
   element.addEventListener("drop", dragDrop);
 });
+
+let learnMore = document.querySelector(".welcome-button");
+learnMore.addEventListener("click", scrollDown);
+
+function scrollDown() {
+  droppable[0].scrollIntoView({behavior: "smooth"});
+}
 
 let dragging;
 
@@ -73,7 +81,7 @@ function dragDrop() {
 function matchFund() {
 
   const remove = document.querySelectorAll(
-    ".draggable, .container, .droppable, .droppable-container, .showMatch, .choices-container, .parallax, #desk, #beach"
+    ".draggable, .container, .droppable, .droppable-container, .showMatch, .choices-container, .parallax, .explaination"
   );
   let makeVisible = document.querySelector(".fund-container");
   makeVisible.className += " make-visible";
