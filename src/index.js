@@ -394,7 +394,7 @@ function compoundingInterest(info, tags) {
 function createBudget(income, savings) {
   let formattedSavings = savings / 12;
   let housing = ((income / 12) * 0.2);
-  let formattedIncome = "$" + income.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
+  let formattedIncome = "$" + (income/12).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
   let transportation = ((income / 12) * 0.15);
   let food = ((income / 12) * 0.1);
   let personal = ((income / 12) * 0.05);
@@ -402,7 +402,7 @@ function createBudget(income, savings) {
     .select("#budget")
     .append("div")
     .classed("budget-title", true)
-    .text(`${formattedIncome} Income Budget Breakdown Per Month`);
+    .text(`Monthly ${formattedIncome} Budget Breakdown`);
   budget.append("p").classed("budget-item", true).text(`Savings: $${formattedSavings.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`);
 
   budget.append("p").classed("budget-item", true).text(`Housing: $${housing.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,")}`);
