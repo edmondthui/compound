@@ -123,16 +123,18 @@ body {
 }
 
 .fund-container {
+  width: 0px;
   position: absolute;
   top: 0;
   left: 0;
   margin-top: 60px;
   z-index: -1;
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  transition: all 2s ease-in-out;
 }
 
 .make-visible {
+  width: 100%;
   opacity: 1;
 }
 
@@ -163,6 +165,7 @@ body {
 }
 
 .budget-container {
+
   display: flex;
 }
 
@@ -173,6 +176,7 @@ body {
   height: 390px;
   position: relative;
 }
+
 
 .fund-graph-info {
   height: calc(100vh - 60px);

@@ -210,13 +210,6 @@ function displayGraph(dataObj, info) {
 
   let length = path.node().getTotalLength();
 
-  path
-    .attr("stroke-dasharray", length)
-    .attr("stroke-dashoffset", length)
-    .transition()
-    .duration(2000)
-    .attr("stroke-dashoffset", 0);
-
   let chartInfo = d3
     .select("#fund-info")
     .append("div")
@@ -254,6 +247,7 @@ function displayGraph(dataObj, info) {
     }
     scroll = scrolled;
   });
+
 }
 
 function compoundingInterest(info, tags) {
