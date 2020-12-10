@@ -1,13 +1,13 @@
 #header {
   background-color: darkgreen;
   height: 60px;
+  display: flex;
+  align-items: center;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   padding: 0 100px;
-  align-items: center;
-  display: flex;
   z-index: 10;
 }
 
@@ -370,4 +370,23 @@ body {
   font-size: 20px;
   margin: 0px auto;
   margin-top: 20px;
+}
+
+.social {
+  width: 35px;
+  height: 35px;
+  padding: 0px 15px;
+}
+
+#header a {
+  display: flex;
+  align-items: center;
+}
+
+.linkedin {
+  padding-left: 50px;
+}
+
+.github {
+  filter: invert(1)
 }
