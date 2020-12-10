@@ -48,10 +48,9 @@
   font-size: 20px;
   box-shadow: 2px 2px 5px gray;
   margin: inherit;
-}
-
-.draggable:hover {
   cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
 }
 
 .droppable-container {
@@ -117,6 +116,8 @@ body {
   background-color: #001900;
   border: 1px solid #001900;
 }
+
+
 
 .showMatch:hover {
   cursor: pointer;
