@@ -68,11 +68,16 @@
   margin: 0;
 }
 
+html {
+  scroll-snap-type: y mandatory;
+}
+
 body {
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
   margin: 0;
+
 }
 
 .container {
@@ -198,6 +203,7 @@ body {
 }
 
 .compound-container {
+  scroll-snap-align: start;
   height: calc(100vh - 40px);
   display: flex;
   flex-direction: column;
@@ -213,6 +219,7 @@ body {
 }
 
 .fund-graph-info {
+  scroll-snap-align: start;
   height: calc(100vh - 60px);
   margin-bottom: 20px;
 }
@@ -278,6 +285,7 @@ body {
 }
 
 .parallax {
+  scroll-snap-align: start;
   height: calc(100vh);
   display: flex;
   justify-content: center;
@@ -369,6 +377,7 @@ body {
 }
 
 .explaination {
+  scroll-snap-align: start;
   font-size: 20px;
   margin: 0px auto;
   margin-top: 20px;
