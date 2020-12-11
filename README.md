@@ -12,7 +12,7 @@ Compound is an app that lets you plan your financial future. Just drag and drop 
 * Drag and drop information into drop zone
 * Have a button to take all the tags in drop zone and display a graph and budget
 * Display graph and budget using D3
-* Animations and CSS for graphs and parallax slider on landing
+* Beautiful and function UI/UX by using animations and CSS for graphs, buttons, and parallax slider on landing
 
 ## Wireframes
 ### Homepage
