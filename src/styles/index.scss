@@ -77,7 +77,12 @@ body {
   flex-direction: column;
   font-family: sans-serif;
   margin: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
 
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .container {
@@ -134,7 +139,6 @@ body {
   top: 0;
   left: 0;
   margin-top: 60px;
-  z-index: -1;
   opacity: 0;
   transition: opacity 2s ease-in-out;
 }
@@ -222,6 +226,8 @@ body {
   scroll-snap-align: start;
   height: calc(100vh - 60px);
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .hovering {
@@ -400,4 +406,25 @@ body {
 
 .github {
   filter: invert(1)
+}
+
+.scroll-down {
+  border-radius: 5px;
+  background-color: darkgreen;
+  color: white;
+  width: 200px;
+  height: 50px;
+  border: 1px solid darkgreen;
+  font-weight: 700;
+  margin: 20px auto;
+  font-size: 20px;
+  outline: none;
+}
+
+.scroll-down:hover {
+  cursor: pointer;
+  transform: scale(1.2);
+  transition: 0.3s;
+  background-color: #001900;
+  border: 1px solid #001900;
 }

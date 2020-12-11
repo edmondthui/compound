@@ -19,7 +19,7 @@ let learnMore = document.querySelector(".welcome-button");
 learnMore.addEventListener("click", scrollDown);
 
 function scrollDown() {
-  droppable[0].scrollIntoView({behavior: "smooth"});
+  window.scrollTo({top: document.body.scrollHeight, behavior: "smooth"});
 }
 
 let dragging;
@@ -81,7 +81,7 @@ function dragDrop() {
 function matchFund() {
 
   const remove = document.querySelectorAll(
-    ".draggable, .container, .droppable, .droppable-container, .showMatch, .choices-container, .parallax, .explaination"
+    ".draggable, .container, .droppable, .droppable-container, .showMatch, .choices-container, .parallax, .explaination, .welcome"
   );
   let makeVisible = document.querySelector(".fund-container");
   makeVisible.className += " make-visible";
@@ -164,7 +164,7 @@ function displayGraph(dataObj, info) {
       window.innerHeight -
       margin.top -
       margin.bottom -
-      window.innerHeight / 2.5;
+      window.innerHeight / 2;
 
   let svg = d3
     .select("#fund-graph")
@@ -247,7 +247,12 @@ function displayGraph(dataObj, info) {
     }
     scroll = scrolled;
   });
-
+  let fundInfo = document.querySelector('.fund-graph-info')
+  let scrollDownBtn = document.createElement("button")
+  scrollDownBtn.className = "scroll-down"
+  scrollDownBtn.innerHTML = "Show Budget"
+  fundInfo.append(scrollDownBtn);
+  scrollDownBtn.addEventListener("click", scrollDown);
 }
 
 function compoundingInterest(info, tags) {
