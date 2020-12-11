@@ -1,12 +1,12 @@
 # Compound
 [Live Demo](https://edmondthui.github.io/compound/)  
-Compound is an app that lets you plan your financial future. Just drag and drop some information into your plan and click generate to have a investing plan and budget generated for you!
+Compound is an app that lets you plan your financial future. Just drag and drop some information into your plan and it will generate an investing plan and budget for you!
 
 ## Technologies Used
 * `JavaScript` 
 * `D3.js` for data visualization
 * `Webpack` to bundle JS files
-* `IEX Trading API` or some other API to fetch fund data 
+* `Alpha Vantage API` to fetch index fund data
 
 ## Key Features / MVP
 * Drag and drop information into drop zone
