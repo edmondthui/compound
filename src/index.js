@@ -188,7 +188,7 @@ function displayGraph(dataObj, info) {
     .call(d3.axisBottom(x));
 
   let y = d3.scaleLinear().domain([minPrice, maxPrice]).range([height, 0]);
-  svg.append("g").call(d3.axisLeft(y));
+  svg.append("g").call(d3.axisLeft(y).tickFormat((d) => {return "$" + (d)}));
 
   let path = svg
     .append("path")
@@ -338,7 +338,7 @@ function compoundingInterest(info, tags) {
     .call(d3.axisBottom(x));
 
   let y = d3.scaleLinear().domain([minPrice, maxPrice]).range([height, 0]);
-  svg.append("g").call(d3.axisLeft(y));
+  svg.append("g").call(d3.axisLeft(y).tickFormat((d) => {return "$" + (d)}));
 
   let path = svg
     .append("path")
@@ -462,7 +462,7 @@ function createBudget(income, savings) {
   svg
   .append("g")
   .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(x));
+  .call(d3.axisBottom(x).tickFormat((d) => {return "$" + (d)}));
 
   svg.append("g")
   .call(d3.axisLeft(y))
