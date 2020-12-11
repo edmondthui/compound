@@ -132,6 +132,7 @@ body::-webkit-scrollbar {
 .showMatch:hover {
   cursor: pointer;
   outline: none;
+  
 }
 
 .fund-container {
@@ -392,6 +393,8 @@ body::-webkit-scrollbar {
 
 .welcome-button:hover {
   cursor: pointer;
+  transform: scale(1.05);
+  transition: 0.3s;
 }
 
 .welcome {
@@ -404,7 +407,7 @@ body::-webkit-scrollbar {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 30px;
+  padding: 30px 0px 30px 120px;
   width: 100%;
   height: 100%;
 }
@@ -427,7 +430,8 @@ body::-webkit-scrollbar {
   align-items: center;
 }
 
-.linkedin {
+.social-buttons {
+  display: flex;
   padding-left: 50px;
 }
 
@@ -454,4 +458,14 @@ body::-webkit-scrollbar {
   transition: 0.3s;
   background-color: #001900;
   border: 1px solid #001900;
+}
+
+.github:hover {
+  transform: scale(1.25);
+  transition: 0.3s;
+}
+
+.linkedin:hover {
+  transform: scale(1.25);
+  transition: 0.3s;
 }
