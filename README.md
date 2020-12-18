@@ -14,6 +14,26 @@ Compound is an app that lets you plan your financial future. Just drag and drop 
 * Display graph and budget using D3
 * Beautiful and function UI/UX by using animations and CSS for graphs, buttons, and parallax slider on landing
 
+```function fetchStockData(fundTicker, info) {
+  let chartAPIurl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${fundTicker}&apikey=${APIkey}`;
+  let dataObj = [];
+  fetch(chartAPIurl)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      for (let point in data["Time Series (Daily)"]) {
+        dataObj.push({
+          value: parseFloat(data["Time Series (Daily)"][point]["1. open"]),
+          date: d3.timeParse("%Y-%m-%d")(point),
+        });
+      }
+      displayGraph(dataObj, info);
+    });
+}
+```
+This code shows how I fetch the live stock data from Alpha Vantage's REST API endpoint using the Vanilla Javascript fetch() method and format it to be displayed by D3. 
+
 ## Wireframes
 ### Homepage
 ![Compound Homepage Wireframe](https://i.imgur.com/aZ5No1Z.png)
