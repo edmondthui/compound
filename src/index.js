@@ -23,20 +23,21 @@ function scrollDown() {
 }
 
 let dragging;
+let dropZone;
 
 function dragStart() {
   this.className += " dragging";
   if ([...this.classList].includes("age")) {
-    let dropZone = document.getElementsByClassName("container age")[0];
+    dropZone = document.getElementsByClassName("container age")[0];
     dropZone ? dropZone.className += " highlight" : "";
   } else if ([...this.classList].includes("risk")) {
-    let dropZone = document.getElementsByClassName("container risk")[0];
+    dropZone = document.getElementsByClassName("container risk")[0];
     dropZone ? dropZone.className += " highlight" : "";
   } else if ([...this.classList].includes("income")) {
-    let dropZone = document.getElementsByClassName("container income")[0];
+    dropZone = document.getElementsByClassName("container income")[0];
     dropZone ? dropZone.className += " highlight" : "";
   } else if ([...this.classList].includes("retirement")) {
-    let dropZone = document.getElementsByClassName("container retirement")[0];
+    dropZone = document.getElementsByClassName("container retirement")[0];
     dropZone ? dropZone.className += " highlight" : "";
   }
   dragging = this;
@@ -57,19 +58,24 @@ function dragOver(e) {
 }
 
 function dragLeave() {
-  this.className = "container";
+  debugger;
+  this.className = "container " + this.classList[1];
 }
 
 function dragDrop() {
-  this.className = "dropped";
-  if (this.children.length === 0) {
+  if (this.children.length === 0 && this.classList[1] === dragging.classList[1]) {
+    this.className = "dropped " + this.classList[1];
     this.append(dragging);
   }
-  else {
+  else if (this.children.length === 1 && this.classList[1] === dragging.classList[1]) {
+    this.className = "dropped " + this.classList[1];
     this.replaceChild(dragging, this.children[0]);
   }
+  else {
+    this.className = "container " + this.classList[1];
+  }
   let filled = [...droppable].filter(
-    (droppable) => droppable.className === "dropped"
+    (droppable) => droppable.className.includes("dropped")
   );
   if (filled.length === 4) {
     let showButton = document.querySelector(".match");
