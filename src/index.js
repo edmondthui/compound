@@ -76,7 +76,14 @@ function dragDrop() {
     this.replaceChild(dragging, this.children[0]);
   }
   else {
-    this.className = "dropped " + this.classList[1];
+    if (this.children.length === 1) {
+
+      this.className = "dropped " + this.classList[1];
+    }
+    else {
+      this.className = "container " + this.classList[1];
+    }
+
   }
   let filled = [...droppable].filter(
     (droppable) => droppable.className.includes("dropped")
