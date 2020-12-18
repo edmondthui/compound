@@ -448,6 +448,10 @@ body::-webkit-scrollbar {
   filter: invert(1)
 }
 
+.portfolio {
+  filter: invert(1)
+}
+
 .scroll-down {
   border-radius: 5px;
   background-color: darkgreen;
@@ -480,6 +484,11 @@ body::-webkit-scrollbar {
 }
 
 .angellist:hover {
+  transform: scale(1.25);
+  transition: 0.3s;
+}
+
+.portfolio:hover {
   transform: scale(1.25);
   transition: 0.3s;
 }

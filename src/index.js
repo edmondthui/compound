@@ -1,4 +1,5 @@
 import "./styles/index.scss";
+const APIkey = "MIDR3MRG2WBYRNQN";
 
 const draggable = document.querySelectorAll(".draggable");
 const droppable = document.querySelectorAll(".container");
@@ -138,7 +139,6 @@ function matchFund() {
 }
 
 function fetchStockData(fundTicker, info) {
-  const APIkey = "MIDR3MRG2WBYRNQN";
   let chartAPIurl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${fundTicker}&apikey=${APIkey}`;
   let dataObj = [];
   fetch(chartAPIurl)
