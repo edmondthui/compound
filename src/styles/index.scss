@@ -95,6 +95,10 @@ body::-webkit-scrollbar {
   margin: 20px;
 }
 
+.container .draggable {
+  margin: 0;
+}
+
 .remove {
   display: none;
   opacity: 0;
