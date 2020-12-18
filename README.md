@@ -32,7 +32,7 @@ Compound is an app that lets you plan your financial future. Just drag and drop 
     });
 }
 ```
-This code shows how I fetch the live stock data from Alpha Vantage's REST API endpoint using the Vanilla Javascript fetch() method and format it to be displayed by D3. 
+This code shows how I fetch the live stock data from Alpha Vantage's REST API endpoint using the Vanilla Javascript fetch() method and format it to be displayed by D3. This is my second application using an external API to display live stock data. I have a strong understanding of fetching data from an external API and formatting the response data to be displayed.
 
 ## Wireframes
 ### Homepage
