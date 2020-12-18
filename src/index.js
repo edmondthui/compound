@@ -51,7 +51,9 @@ function dragEnd() {
 
 function dragEnter(e) {
   e.preventDefault();
-  this.className += " hovering";
+  if (this.children.length === 0) {
+    this.className += " hovering";
+  }
 }
 
 function dragOver(e) {
@@ -59,8 +61,9 @@ function dragOver(e) {
 }
 
 function dragLeave() {
-  debugger;
-  this.className = "container " + this.classList[1];
+  if (this.children.length === 0) {
+    this.className = "container " + this.classList[1];
+  }
 }
 
 function dragDrop() {
