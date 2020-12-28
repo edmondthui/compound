@@ -46,7 +46,8 @@ function dragStart() {
 }
 
 function dragEnd() {
-  this.className = "draggable";
+  this.className = "draggable " + dragging.classList[1];
+  dropZone.className = `${dropZone.classList[0]} ${dropZone.classList[1]}`
 }
 
 function dragEnter(e) {
@@ -76,13 +77,12 @@ function dragDrop() {
     this.replaceChild(dragging, this.children[0]);
   }
   else {
-    if (this.children.length === 1) {
-
-      this.className = "dropped " + this.classList[1];
-    }
-    else {
+    if (this.children.length === 0 && this.classList[1] !== dragging.classList[1]) {
       this.className = "container " + this.classList[1];
     }
+    // else {
+    //   this.className = "container " + this.classList[1];
+    // }
 
   }
   let filled = [...droppable].filter(
