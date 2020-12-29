@@ -14,7 +14,8 @@ Compound is an app that lets you plan your financial future. Just drag and drop 
 * Display graph and budget using D3
 * Beautiful and function UI/UX by using animations and CSS for graphs, buttons, and parallax slider on landing
 
-```function fetchStockData(fundTicker, info) {
+```JavaScript
+function fetchStockData(fundTicker, info) {
   let chartAPIurl = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${fundTicker}&apikey=${APIkey}`;
   let dataObj = [];
   fetch(chartAPIurl)
