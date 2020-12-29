@@ -42,7 +42,7 @@ This code shows how I fetch the live stock data from Alpha Vantage's REST API en
 
 ![Compound Graphs](https://i.imgur.com/2EzG54X.gif)
 
-When clicking on the match fund button a graph using D3.js is rendered with the fund's current price from the last 4 months. There is a smooth scroll button that will scroll down to two additional D3.js graphs. The top graph is a compound interest graph showing you how much you will have if you follow a strict budget and invest your income. The bottom graph is a automatically generated budgeted that suggests how much you should spend on each category. There are animations for all the graphs that listen for either a scroll up or down to render the graph line.
+When clicking on the match fund button a graph using D3.js is rendered with the fund's current price from the last 4 months. There is a smooth scroll button that will scroll down to two additional D3.js graphs. The top graph is a compound interest graph showing you how much you will have if you follow a strict budget and invest your income. The bottom graph is a automatically generated budgeted that suggests how much you should spend on each category. There is a listener on scroll that animates all the graph lines when scrolling either up or down.
 
 ## Wireframes
 ### Homepage
