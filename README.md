@@ -47,25 +47,25 @@ This code shows how I fetch the live stock data from Alpha Vantage's REST API en
 ## Work Breakdown
 ### December 7
 * Setup drag and drop
-* Start with styling the home page
-* Match tags from drag and drop with fund and grab data using API
+* Started with styling the home page
+* Matched tags from drag and drop with fund and grab data using API
 
 ### December 8
-* Learn how to use D3 
-* Display fund chart and info
+* Learned how to use D3 
+* Displayed fund chart and info
 * CSS styling for chart and info
-* Add slide in for chart and info
+* Added slide in for chart and info
 
 ### December 9
-* Add compound interest chart based on dropped tags
-* Have linked budget breakdown for optimal savings
-* Allow changes in data from budget display in chart
-* User data from matched fund to calculate compounded interest and value
+* Added compound interest chart based on dropped tags
+* Created linked budget breakdown for optimal savings
+* Allowed changes in data from budget display in chart
+* Used user data from matched fund to calculate compounded interest and value
 
 ### December 10 
 * Continue working on all features
 
 ### December 11
-* Clean up code and find bugs
-* Add more styling
-* Finish production README
+* Cleaned up code and find bugs
+* Added more styling
+* Finished production README
