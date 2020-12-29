@@ -40,6 +40,10 @@ function fetchStockData(fundTicker, info) {
 
 This code shows how I fetch the live stock data from Alpha Vantage's REST API endpoint using the Vanilla Javascript fetch() method and format it to be displayed by D3. This is my second application using an external API to display live stock data. I have a strong understanding of fetching data from an external API and formatting the response data to be displayed.
 
+![Compound Graphs](https://i.imgur.com/2EzG54X.gif)
+
+When clicking on the match fund button a graph using D3.js is rendered with the fund's current price from the last 4 months. There is a smooth scroll button that will scroll down to two additional D3.js graphs. The top graph is a compound interest graph showing you how much you will have if you follow a strict budget and invest your income. The bottom graph is a automatically generated budgeted that suggests how much you should spend on each category. There are animations for all the graphs that listen for either a scroll up or down to render the graph line.
+
 ## Wireframes
 ### Homepage
 ![Compound Homepage Wireframe](https://i.imgur.com/aZ5No1Z.png)
